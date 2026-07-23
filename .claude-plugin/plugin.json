@@ -1,0 +1,8 @@
+{
+  "name": "vgv-qa-automation",
+  "description": "Autonomous QA automation platform: bootstrap a test framework, generate human-readable test cases, and implement them as running automation for web, mobile or API. Test cases are the single source of truth.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Very Good Ventures"
+  }
+}
