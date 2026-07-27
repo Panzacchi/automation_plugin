@@ -63,6 +63,7 @@ Use worktree isolation only if workers must touch shared files; the "own spec fi
 - Reuse centralized login + navigation helpers, fixtures and env config. No copy-pasted flows.
 - Tests are idempotent: self-clean any data they create, and respect backend limits (rate/quota).
 - Data values come from the TC's Pre-conditions / `.env`, never hardcoded secrets.
+- **Network scenarios**: when a TC mentions a mocked backend, an HTTP error, an empty/incomplete response, a timeout, an analytics event, request verification, "no request expected", a duplicate request or a retry, use the `intercept-network` skill to set up the mock/recorder instead of hand-rolling it. Run its preflight to pick a strategy, and if a capability comes back below `SUPPORTED`, report it (do not fake the assertion).
 
 ## Self-healing policy (conservative)
 

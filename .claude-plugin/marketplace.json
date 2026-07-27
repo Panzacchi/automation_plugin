@@ -1,0 +1,16 @@
+{
+  "name": "vgv-qa",
+  "owner": {
+    "name": "Very Good Ventures"
+  },
+  "metadata": {
+    "description": "VGV QA automation tooling for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "vgv-qa-automation",
+      "source": "./",
+      "description": "Bootstrap a test framework, generate human-readable test cases, implement them as running automation, and intercept/mock backend traffic. Test cases are the single source of truth."
+    }
+  ]
+}

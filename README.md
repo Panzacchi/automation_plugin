@@ -19,6 +19,7 @@ Requirements (Jira • Notion • Docs • Notes • Figma)
     → bootstrap-framework      set up the project (once per project)
     → gen-test-cases           author the test cases  (test-cases/*.md)
     → implement-test-cases     discover → implement in parallel → run → self-heal
+         ↕ intercept-network    mock backend + capture traffic/analytics (as needed)
          ↕ Knowledge Base (application-map/)   read & updated every run
     → reporting
 ```
@@ -30,6 +31,7 @@ Requirements (Jira • Notion • Docs • Notes • Figma)
 | `bootstrap-framework` | Interviews the QA and scaffolds a complete framework for the chosen target and stack. Runs once per project. | `/bootstrap-framework` |
 | `gen-test-cases` | Generates human-readable, tool-agnostic test cases from Jira, Notion, Granola, flows or notes. The source of truth. | `/gen-test-cases [<file>] [--blank <name>]` |
 | `implement-test-cases` | Reads the test cases, maps the app into a Knowledge Base, then implements and runs each case in parallel with conservative self-healing. | `/implement-test-cases [--all \| <Area> \| TC-001]` |
+| `intercept-network` | Mocks backend responses (errors, empty, timeouts) and captures/asserts requests, responses and analytics events, across web/mobile/API. Detects the safest interception strategy. | `/intercept-network [mock\|capture] <description>` |
 
 Skills also auto-trigger by intent (e.g. "set up automation for this app", "generate test cases from this ticket", "automate these TCs").
 
@@ -43,22 +45,22 @@ Self-healing fixes only non-functional failures (timing, waits, re-render, equiv
 
 ## Install (team)
 
-1. Push this repo to GitHub (public or private your team can access).
-2. Each QA adds a marketplace entry to `~/.claude/settings.json`:
+The repo is a Claude Code plugin marketplace (`.claude-plugin/marketplace.json` → marketplace `vgv-qa`, plugin `vgv-qa-automation`). Each QA runs, in their Claude Code terminal:
 
-   ```json
-   {
-     "extraKnownMarketplaces": {
-       "vgv-qa": {
-         "source": { "source": "github", "repo": "<org>/vgv-qa-automation-plugin" }
-       }
-     }
-   }
-   ```
+```
+/plugin marketplace add VGVentures/automation_plugin
+/plugin install vgv-qa-automation@vgv-qa
+```
 
-3. Enable the `vgv-qa-automation` plugin from that marketplace. The three skills load and trigger by intent.
+The four skills load and trigger by name (`/bootstrap-framework`, `/gen-test-cases`, `/implement-test-cases`, `/intercept-network`) or by intent. For a private repo, make sure `gh`/git auth has access to `VGVentures/automation_plugin`.
 
-For local development you can also copy each `skills/<name>/` folder into `~/.claude/skills/`.
+To update after new versions are pushed:
+
+```
+/plugin marketplace update vgv-qa
+```
+
+For local development you can instead copy each `skills/<name>/` folder into `~/.claude/skills/`.
 
 ## Roadmap
 

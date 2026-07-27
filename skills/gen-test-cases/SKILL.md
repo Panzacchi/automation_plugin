@@ -213,3 +213,14 @@ Write all test cases to a `test-cases/` directory relative to the source locatio
 - Describe what a tester does and observes, not how an automation framework executes it.
 - Never reference any automation tool, framework syntax, command names, or assertion APIs in the output.
 - The source is the input; the test case is a translation, not a transcription.
+
+## Network scenario conventions
+
+When a case involves the backend or analytics, phrase it in plain, tool-agnostic language (the `intercept-network` skill implements it later). Keep the wording consistent:
+
+- Mocked error, as a Pre-condition: "The backend returns HTTP 500 for POST /payments."
+- Empty state, as a Pre-condition: "The backend returns an empty list for GET /transactions."
+- Analytics, as an Expected Result: "The analytics event `payment_started` is sent with `payment_method` set to `card`."
+- Negative traffic, as an Expected Result: "No payment request is sent until the user confirms the operation."
+
+Never name a proxy, mock library or framework API — describe the backend behavior and what the tester observes.
